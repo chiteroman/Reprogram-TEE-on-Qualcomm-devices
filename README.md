@@ -57,7 +57,7 @@ Now you can use:
 
 For StrongBox devices:
 
-> > LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?} {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?}
+> LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?} {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?}
 
 {KEYBOX FILE}: Should be "keybox.xml"
 
