@@ -7,7 +7,7 @@ If you are here it is because your phone has lost the TEE attestation keys, poss
 
 If opening [Key Attestation Demo](https://github.com/vvb2060/KeyAttestation) does not give you any error, do **NOT** follow this guide.
 
-If you want to pass the Strong verdict from Play Integrity you could, but that is not the purpose of this guide and I will **NOT** provide instructions for that.
+This guide will **NOT** provide instructions for passing Strong verdict.
 
 ## WARNINGS:
 
@@ -22,6 +22,7 @@ If you want to pass the Strong verdict from Play Integrity you could, but that i
 - An unlocked bootloader.
 - A valid keybox.xml file, you can use this one in the repo.
 - The engineering ROM for your device.
+- BASIC KNOWLEDGE OF LINUX. 
 
 ## Instructions:
 
@@ -38,8 +39,11 @@ If you want to pass the Strong verdict from Play Integrity you could, but that i
 
 > adb remount
 
+> adb shell
 
-> adb shell mkdir –p /data/nativetest64/qti_keymaster_tests/
+> mkdir –p /data/nativetest64/qti_keymaster_tests/
+
+> exit
 
 > adb push keybox.xml /data/nativetest64/qti_keymaster_tests/
 
@@ -47,14 +51,24 @@ If you want to pass the Strong verdict from Play Integrity you could, but that i
 
 > cd /data/nativetest64/qti_keymaster_tests/
 
+Now you can use:
+
 > LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?}
+
+For StrongBox devices:
+
+> > LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?} {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?}
 
 {KEYBOX FILE}: Should be "keybox.xml"
 
 {KEYBOX DEVICE ID}: Open keybox file and search for "DeviceID", repo keybox uses "X705F100000000"
 
-{ATTEST PROPS?}: Boolean, should be true/false, I recommend setting it as false always, not all TEE support this.
+{ATTEST PROPS?}: Boolean, should be true/false, I recommend setting it as true always. If it gives any error use false.
 
 So, for the keybox in the repo you must run:
 
-> LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox keybox.xml X705F100000000 false
+> LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox keybox.xml X705F100000000 true
+
+If your device has StrongBox:
+
+> LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox keybox.xml X705F100000000 true keybox.xml X705F100000000 true
