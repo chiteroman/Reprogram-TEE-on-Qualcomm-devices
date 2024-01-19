@@ -41,7 +41,7 @@ This guide will **NOT** provide instructions for passing Strong verdict.
 
 > adb shell
 
-> mkdir –p /data/nativetest64/qti_keymaster_tests/
+> mkdir -p /data/nativetest64/qti_keymaster_tests/
 
 > exit
 
