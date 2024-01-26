@@ -14,15 +14,16 @@ This guide will **NOT** provide instructions for passing Strong verdict.
 - Your data will be lost, so backup your phone data first.
 - The original keys that your phone may include in the TEE will be lost.
 - I am not responsible for any other problems that may arise, these instructions are made on a POCO X3 Pro (vayu) and work perfectly, they may not work as they should on other phones.
+- You won't pass Strong verdict even with stock ROM and locked bootloader due Google banned this keybox.
 
 ## You will need:
 
 - A working brain.
 - A working computer.
 - An unlocked bootloader.
-- A valid keybox.xml file, you can use this one in the repo.
+- A valid keybox.xml file, you can use this one in the repo (BANNED).
 - The engineering ROM for your device.
-- BASIC KNOWLEDGE OF LINUX. 
+- BASIC KNOWLEDGE OF LINUX.
 
 ## Instructions:
 
