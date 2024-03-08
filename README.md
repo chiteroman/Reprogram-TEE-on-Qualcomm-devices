@@ -14,16 +14,15 @@ This guide will **NOT** provide instructions for passing Strong verdict.
 - Your data will be lost, so backup your phone data first.
 - The original keys that your phone may include in the TEE will be lost.
 - I am not responsible for any other problems that may arise, these instructions are made on a POCO X3 Pro (vayu) and work perfectly, they may not work as they should on other phones.
-- You won't pass Strong verdict even with stock ROM and locked bootloader due Google banned this keybox.
 
 ## You will need:
 
 - A working brain.
 - A working computer.
 - An unlocked bootloader.
-- A valid keybox.xml file, you can use this one in the repo (BANNED).
-- The engineering ROM for your device.
 - BASIC KNOWLEDGE OF LINUX.
+- A valid keybox.xml file, you can use this one in the repo.
+- The engineering ROM for your device.
 
 ## Instructions:
 
@@ -40,36 +39,28 @@ This guide will **NOT** provide instructions for passing Strong verdict.
 
 > adb remount
 
-> adb shell
-
-> mkdir -p /data/nativetest64/qti_keymaster_tests/
-
-> exit
+> adb shell mkdir -p /data/nativetest64/qti_keymaster_tests/
 
 > adb push keybox.xml /data/nativetest64/qti_keymaster_tests/
 
-> adb shell
+For non StrongBox devices:
 
-> cd /data/nativetest64/qti_keymaster_tests/
-
-Now you can use:
-
-> LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?}
+> adb shell LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox /data/nativetest64/qti_keymaster_tests/{KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?}
 
 For StrongBox devices:
 
-> LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?} {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?}
+> adb shell LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox /data/nativetest64/qti_keymaster_tests/{KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?} {KEYBOX FILE} {KEYBOX DEVICE ID} {ATTEST PROPS?}
 
 {KEYBOX FILE}: Should be "keybox.xml"
 
-{KEYBOX DEVICE ID}: Open keybox file and search for "DeviceID", repo keybox uses "X705F100000000"
+{KEYBOX DEVICE ID}: Open keybox file and search for "DeviceID", repo keybox uses "0"
 
 {ATTEST PROPS?}: Boolean, should be true/false, I recommend setting it as true always. If it gives any error use false.
 
 So, for the keybox in the repo you must run:
 
-> LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox keybox.xml X705F100000000 true
+> adb shell LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox /data/nativetest64/qti_keymaster_tests/keybox.xml 0 true
 
 If your device has StrongBox:
 
-> LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox keybox.xml X705F100000000 true keybox.xml X705F100000000 true
+> adb shell LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox /data/nativetest64/qti_keymaster_tests/keybox.xml 0 true keybox.xml 0 true
