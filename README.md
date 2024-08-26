@@ -22,12 +22,12 @@ This guide will **NOT** provide instructions for passing Strong verdict.
 - An unlocked bootloader.
 - BASIC KNOWLEDGE OF LINUX.
 - A valid keybox.xml file, you can use this one in the repo.
-- The engineering ROM for your device.
+- The engineering ROM for your device or Stock ROM with included `KmInstallKeybox` binary.
 
-## Instructions:
+## Instructions for Engineering ROM:
 
 1. Flash engineering ROM.
-2. Phone must be connected to PC, then execute this commands IN ORDER:
+2. Phone must be connected to PC, then execute these commands IN ORDER:
 
 ```
 adb root
@@ -47,8 +47,33 @@ adb push keybox.xml /data/nativetest64/qti_keymaster_tests/
 ```
 adb shell LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox /data/nativetest64/qti_keymaster_tests/keybox.xml 0 true
 ```
-
 If you are using different keybox, you must change few arguments:
 > adb shell LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox /data/nativetest64/qti_keymaster_tests/{KEYBOX FILE} {DEVICE ID} {ATTEST PROPS?}
+
+## Instructions for Stock ROM:
+(with KmInstallKeybox binaries)
+
+1. Flash Stock ROM.
+2. Root the device using Magisk or any Rooting method.
+3. Phone must be connected to PC, then execute these commands IN ORDER:
+```
+adb shell su
+```
+4. Grant Root Access to Shell when prompted on your phone.
+```
+adb shell su -c mkdir -p /data/nativetest64/qti_keymaster_tests/
+```
+```
+adb push keybox.xml /sdcard/
+```
+```
+adb shell su -c cp keybox.xml /data/nativetest64/qti_keymaster_tests/
+```
+```
+adb shell su -c LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox /data/nativetest64/qti_keymaster_tests/keybox.xml 0 true
+```
+
+If you are using different keybox, you must change few arguments:
+> adb shell su -c LD_LIBRARY_PATH=/vendor/lib64/hw KmInstallKeybox /data/nativetest64/qti_keymaster_tests/{KEYBOX FILE} {DEVICE ID} {ATTEST PROPS?}
 
 Attest props must be true unless it gives some error.
